@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body{
+    height:100vh;
+}
+
+.editor-setting{
+    font-size: 1.05rem;
+}
+
+.editor-setting h1{
+    font-size: 1.5rem;
+    font-weight: 600;
+    font-family: sans-serif;
+    margin:1.5rem 0;
+}
+
+.editor-setting h2{
+    font-size: 1.4rem;
+    font-family: sans-serif;
+    margin:1.5rem 0;
+}
+.editor-setting h3{
+    font-size: 1.3rem;
+    font-family: sans-serif;
+    margin:1.5rem 0;
+}
+
+.editor-setting a{
+    color:rgb(73,149,199);
+    text-decoration:none;
+}
+.editor-setting ol{
+    list-style:decimal;
+    margin-left:1.5rem;
+}
+
+.editor-setting pre{
+    padding:10px;
+    margin:5px 0;
+    background-color: rgba(30, 47, 63, 0.712);
+    text-wrap:wrap;
+    color:white;
+}
+
+.editor-setting ul{
+    list-style: disc;
+    margin-left: 22px;
+}
+
+.editor-setting p{
+    padding: 8px;
+}
