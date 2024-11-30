@@ -29,7 +29,7 @@ const PostPage = () => {
 
     const fetchRecentPosts = async () => {
       try {
-        const res = await axiosInstance.get(`/api/post/getposts?limit=4`);
+        const res = await axiosInstance.get(`/api/post/getposts?limit=3`);
         setRecentPost(res.data.posts);
       } catch (error) {
         console.log(error);

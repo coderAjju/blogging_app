@@ -68,7 +68,7 @@ const Search = () => {
       });
     }
     if (e.target.id === "category") {
-      const category = e.target.value || "uncategorized";
+      const category = e.target.value || "";
       setSidebarData({
         ...sidebarData,
         category: category,

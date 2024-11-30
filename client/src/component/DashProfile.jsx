@@ -19,12 +19,12 @@ const DashProfile = () => {
 
   const handleImage = (e) => {
     const file = e.target.files[0];
-    setImageFile(file)
-    if(file){
-      setBlobImage(URL.createObjectURL(file))
+    setImageFile(file);
+    if (file) {
+      setBlobImage(URL.createObjectURL(file));
     }
   };
-  
+
   const handleUploadImage = async () => {
     if (!imageFile) {
       alert("Please select a file first.");
@@ -37,15 +37,11 @@ const DashProfile = () => {
 
     try {
       setLoading(true);
-      const response = await axiosInstance.post(
-        "/api/auth/upload",
-        blogImage,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      const response = await axiosInstance.post("/api/auth/upload", blogImage, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
       setImageFile({ image: response.data.url });
       setImageFileUrl(response.data.url);
       setUser({ ...authUser, profilePic: response.data.url });
@@ -56,7 +52,6 @@ const DashProfile = () => {
     }
   };
 
-
   const {
     register,
     handleSubmit,
@@ -65,12 +60,16 @@ const DashProfile = () => {
     defaultValues: {
       username: authUser.name,
       email: authUser.email,
-      profilePicture: authUser.profilePic
+      profilePicture: authUser.profilePic,
     },
   });
 
   const updateUserInfo = async (data) => {
-    if (authUser.username === data.username && authUser.email === data.email && authUser.profilePic === imageFileUrl) {
+    if (
+      authUser.username === data.username &&
+      authUser.email === data.email &&
+      authUser.profilePic === imageFileUrl
+    ) {
       return toast.error("No changes made");
     }
 
@@ -79,7 +78,7 @@ const DashProfile = () => {
     try {
       const res = await axiosInstance.post(
         `/api/user/update/${authUser._id}`,
-        data
+        {...data, profilePicture: imageFileUrl}
       );
       toast.success(res.data.message);
       setUser(res.data.user);
@@ -89,8 +88,6 @@ const DashProfile = () => {
     } finally {
       setLoading(false);
     }
-
-    
   };
 
   const handleDeleteUser = async () => {
@@ -137,7 +134,12 @@ const DashProfile = () => {
   return (
     <div className="max-w-lg flex flex-col  items-center w-full mx-auto">
       <h1 className="my-7 font-semibold text-center text-3xl">Proflie</h1>
-      <input type="file" ref={filePickerRef} onChange={handleImage} className="hidden" />
+      <input
+        type="file"
+        ref={filePickerRef}
+        onChange={handleImage}
+        className="hidden"
+      />
       <form
         onSubmit={handleSubmit(updateUserInfo)}
         className="w-full flex items-center flex-col gap-4"
@@ -187,12 +189,13 @@ const DashProfile = () => {
         <Button className="w-full" type="submit">
           Update
         </Button>
-        {
-        authUser && authUser.isAdmin &&
-        <Link to={`/createPost`} className='w-full'>
-        <Button className='w-full' gradientDuoTone="purpleToBlue">Create Post</Button>
-        </Link>
-      }
+        {authUser && authUser.isAdmin && (
+          <Link to={`/createPost`} className="w-full">
+            <Button className="w-full" gradientDuoTone="purpleToBlue">
+              Create Post
+            </Button>
+          </Link>
+        )}
       </form>
       <div className="text-red-500 items-start flex justify-between w-full mt-2">
         <button

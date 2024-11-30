@@ -7,6 +7,7 @@ export const updateUserInfo = async (req, res, next) => {
       return res.status(401).json({ message: "Unauthorized" });
     }
 
+
     if (req.body.username) {
       if (!req.body.username.length > 7 && !req.body.username.length < 20) {
         return next(

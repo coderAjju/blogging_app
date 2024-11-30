@@ -19,7 +19,7 @@ const Home = () => {
     }
     const fetchPosts = async () => {
       try {
-        const res = await axiosInstance.get("/api/post/getposts?limit=8");
+        const res = await axiosInstance.get("/api/post/getposts?limit=9");
         setPosts(res.data.posts);
       } catch (error) {
         console.log(error);

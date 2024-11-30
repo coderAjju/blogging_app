@@ -9,6 +9,7 @@ const Header = () => {
   const { authUser } = useAuthStore();
   const {theme,setTheme} = useThemeStore();
   const [searchTerm, setSearchTerm] = useState("");
+  const [showInputField, setShowInputField] = useState(false)
   const location = useLocation();
   const navigate = useNavigate();
   const path = useLocation().pathname;
@@ -25,7 +26,10 @@ const Header = () => {
       urlParams.set("searchTerm",searchTerm)
       const searchQuery = urlParams.toString();
       navigate(`/search?${searchQuery}`)
+      setShowInputField(false)
     } 
+
+    
   return (
     <Navbar className="border-b-2">
       <Link
@@ -40,14 +44,16 @@ const Header = () => {
           type="text"
           placeholder="Search..."
           rightIcon={AiOutlineSearch}
-          className="hidden lg:inline"
+          className={`lg:inline absolute lg:relative lg:top-0 top-16 left-5 sm:left-20 md:left-28 ${showInputField ? "block" : "hidden"} transition-all duration-300 ease-in-out `}
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
+
       </form>
       <Button
         className="w-12 h-10 lg:hidden rounded-full flex justify-center items-center "
         color="gray"
+        onClick={()=>setShowInputField(!showInputField)}
       >
         <AiOutlineSearch />
       </Button>
