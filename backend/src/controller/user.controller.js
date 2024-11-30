@@ -33,7 +33,7 @@ export const updateUserInfo = async (req, res, next) => {
       {
         username: req.body.username,
         email: req.body.email,
-        // profilePicture:req.body.profilePicture
+        profilePicture:req.body.profilePicture
       },
       { new: true }
     );

@@ -65,6 +65,7 @@ const DashProfile = () => {
     defaultValues: {
       username: authUser.name,
       email: authUser.email,
+      profilePicture: authUser.profilePic
     },
   });
 
@@ -72,6 +73,8 @@ const DashProfile = () => {
     if (authUser.username === data.username && authUser.email === data.email && authUser.profilePic === imageFileUrl) {
       return toast.error("No changes made");
     }
+
+    await handleUploadImage();
 
     try {
       const res = await axiosInstance.post(
@@ -87,7 +90,7 @@ const DashProfile = () => {
       setLoading(false);
     }
 
-    handleUploadImage();
+    
   };
 
   const handleDeleteUser = async () => {
