@@ -13,7 +13,7 @@ const UpdatePost = () => {
   const [file, setFile] = useState(null);
   const [uploadedUrl, setUploadedUrl] = useState("");
   const [loading, setLoading] = useState(false);
-  const [formData, setFormData] = useState([]);
+  const [formData, setFormData] = useState({});
   const [currentPostId, setCurrentPostId] = useState(null)
   const {authUser} = useAuthStore();
 
@@ -30,6 +30,7 @@ const UpdatePost = () => {
     })();
     
   },[]);
+  console.log(formData.image)
   
   // this function is responsible for uploading the blog image
   const handleUploadImage = async () => {
@@ -77,6 +78,7 @@ const UpdatePost = () => {
       toast.error(error.response.data.message || error.message);
     }
   };
+
 
   return (
     <div className="p-3 max-w-3xl mx-auto min-h-screen">

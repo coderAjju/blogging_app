@@ -110,10 +110,10 @@ const Header = () => {
         <Navbar.Link active={path === "/" ? true : false} as={"div"}>
           <Link to={"/"}>Home</Link>
         </Navbar.Link>
-        <Navbar.Link active={path === "/about" ? true : false} as={"div"}>
-          <Link to={"/about"}>About</Link>
+        <Navbar.Link active={path === "/about" ? true : false} as={"div"} onClick={()=>navigate("/about")}>
+          <Link to={"/about"} >About</Link>
         </Navbar.Link>
-        <Navbar.Link active={path === "/projects" ? true : false} as={"div"}>
+        <Navbar.Link active={path === "/projects" ? true : false} as={"div"} onClick={()=>navigate("/contact")}>
           <Link to={"/contact"}>Contact Us</Link>
         </Navbar.Link>
       </Navbar.Collapse>

@@ -149,7 +149,7 @@ const DashProfile = () => {
           onClick={() => filePickerRef.current.click()}
         >
           <img
-            src={authUser.profilePic || blobImage}
+            src={authUser.profilePicture || blobImage}
             alt="user"
             className=" rounded-full w-full h-full border-8 borer-[lightgray] object-cover"
           />
