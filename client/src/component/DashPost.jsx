@@ -58,7 +58,7 @@ const DashPost = () => {
     try {
       const res = await axiosInstance.delete(`/api/post/deletepost/${postIdToDelete}/${authUser._id}`);
       toast.success(res.data.message);
-      navigate("/");
+      navigate("/dashboard?tab=posts");
     } catch (error) {
       toast.error(error.response.data.message || error.message);
       console.log(error.response.data.message || error.message);
