@@ -5,16 +5,14 @@ import PostCard from '../component/PostCard';
 import { Link } from 'react-router-dom';
 import useAuthStore from '../zustant/useAuthStore';
 const Home = () => {
-
+  
   const {setUser} = useAuthStore();
   
-
+  
   const [posts, setPosts] = useState([]);
-
   useEffect(() => {
     let tokenExpireTime = parseInt(localStorage.getItem("authUserTokenExpireAt"));
-    
-    if(tokenExpireTime && Date.now() > tokenExpireTime){
+    if(tokenExpireTime && Date.now() < tokenExpireTime){
        setUser(null);
     }
     const fetchPosts = async () => {
