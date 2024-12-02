@@ -3,15 +3,27 @@ import {Link, useNavigate} from "react-router-dom";
 import {Button, Label ,TextInput} from 'flowbite-react'
 import { useForm } from "react-hook-form";
 import useAuthStore from "../zustant/useAuthStore";
+import { useState } from "react";
 const SignIn = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false)
   const {register,handleSubmit,reset,formState:{errors}} = useForm();
   const {signin} = useAuthStore();
   const submitForm = async (data) => {
+    setLoading(true)
     let isSignined = await signin(data);
     if(isSignined)
     reset();
+  setLoading(false)
     navigate("/");
+  }
+
+  if(loading){
+    return (
+      <div className="min-h-[90vh] flex justify-center items-center  ">
+        <h1>Loading...</h1>
+      </div>
+    )
   }
 
 

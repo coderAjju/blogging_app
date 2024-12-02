@@ -44,7 +44,7 @@ const Header = () => {
           type="text"
           placeholder="Search..."
           rightIcon={AiOutlineSearch}
-          className={`lg:inline absolute lg:relative lg:top-0 top-16 left-5 sm:left-20 md:left-28 ${showInputField ? "block" : "hidden"} transition-all duration-300 ease-in-out `}
+          className={`lg:inline absolute lg:relative lg:top-0 top-16 left-5 sm:left-20 md:left-28 lg:left-0 ${showInputField ? "block" : "hidden"} transition-all duration-300 ease-in-out `}
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />

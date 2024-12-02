@@ -28,7 +28,7 @@ const useAuthStore = create((set,get) => ({
     try {
       const res = await axiosInstance.post("/api/auth/signin", formData);
       set({ authUser: res.data.user });
-      localStorage.setItem("authUserTokenExpireAt", Date.now() + 24*60*60*60*1000);
+      localStorage.setItem("authUserTokenExpireAt", Date.now() + 24*60*60*1000);
       localStorage.setItem("authUser", JSON.stringify(get().authUser));
       toast.success(res.data.message);
       return true;

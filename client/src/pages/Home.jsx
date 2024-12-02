@@ -12,7 +12,7 @@ const Home = () => {
   const [posts, setPosts] = useState([]);
   useEffect(() => {
     let tokenExpireTime = parseInt(localStorage.getItem("authUserTokenExpireAt"));
-    if(tokenExpireTime && Date.now() < tokenExpireTime){
+    if(tokenExpireTime && Date.now() > tokenExpireTime){
        setUser(null);
     }
     const fetchPosts = async () => {
