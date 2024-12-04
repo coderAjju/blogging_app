@@ -65,8 +65,8 @@ const PostPage = () => {
         className="mt-10 p-3 max-h-[600px] w-full object-cover"
       />
       <div className="flex justify-between p-3 border-b border-slate-500 mx-auto w-full max-w-2xl text-sx">
-        <span>{post && new Date(post.createdAt).toLocaleDateString()}</span>
-        {/* <span className='italic '>{post && (post.content.length /1000).toFixed(0)} mins read</span> */}
+        <span>Publish date : {post && new Date(post.createdAt).toLocaleDateString()}</span>
+        <span>Update at : {post && new Date(post.updatedAt).toLocaleDateString()}</span>
       </div>
 
       <div
