@@ -5,8 +5,10 @@ import { FaMoon, FaSun } from "react-icons/fa";
 import useAuthStore from "../zustant/useAuthStore";
 import useThemeStore from "../zustant/useThemeStore";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import axiosInstance from "../lib/axios";
 const Header = () => {
-  const { authUser } = useAuthStore();
+  const { authUser ,setUser} = useAuthStore();
   const {theme,setTheme} = useThemeStore();
   const [searchTerm, setSearchTerm] = useState("");
   const [showInputField, setShowInputField] = useState(false)
@@ -28,6 +30,18 @@ const Header = () => {
       navigate(`/search?${searchQuery}`)
       setShowInputField(false)
     } 
+
+    const handleSignOut = async () => {
+      try {
+        const res = await axiosInstance.get("/api/user/signout");
+        toast.success(res.data.message);
+        setUser(null);
+        navigate("/");
+      } catch (error) {
+        toast.error(error.response.data.message || error.message);
+        console.log(error.response.data.message || error.message);
+      }
+    };
 
     
   return (
@@ -95,7 +109,7 @@ const Header = () => {
               <Dropdown.Item>Profile</Dropdown.Item>
             </Link>
             <DropdownDivider/>
-            <Dropdown.Item>Sign out</Dropdown.Item>
+            <Dropdown.Item onClick={handleSignOut}>Sign out</Dropdown.Item>
           </Dropdown>
         ) : (
           <Link to="/signin">

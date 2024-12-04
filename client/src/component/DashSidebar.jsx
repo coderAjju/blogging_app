@@ -1,19 +1,32 @@
 import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Sidebar } from "flowbite-react";
 import { HiUser, HiArrowSmRight, HiDocument, HiOutlineUserGroup, HiAnnotation } from "react-icons/hi";
 import useAuthStore from "../zustant/useAuthStore";
-import useMenuStore from "../zustant/useMenuStore";
+import toast from "react-hot-toast";
+import axiosInstance from "../lib/axios";
 const DashSidebar = () => {
   const location = useLocation();
-  const {authUser} = useAuthStore();
-  const {menuOpen} = useMenuStore();
+  const {authUser, setUser} = useAuthStore();
+  const navigate = useNavigate();
   const [tab, settab] = React.useState("");
   React.useEffect(() => {
     let urlParams = new URLSearchParams(location.search);
     let tabFromUrl = urlParams.get("tab");
     settab(tabFromUrl);
   }, [location]);
+
+  const handleSignOut = async () => {
+    try {
+      const res = await axiosInstance.get("/api/user/signout");
+      toast.success(res.data.message);
+      setUser(null);
+      navigate("/");
+    } catch (error) {
+      toast.error(error.response.data.message || error.message);
+      console.log(error.response.data.message || error.message);
+    }
+  };
   return (
     <Sidebar className="w-full md:h-screen  ">
       <Sidebar.Items>
@@ -77,7 +90,7 @@ const DashSidebar = () => {
             </Sidebar.Item>
           </Link>
             )}
-          <Sidebar.Item icon={HiArrowSmRight} className="cursor-pointer">
+          <Sidebar.Item onClick={handleSignOut} icon={HiArrowSmRight} className="cursor-pointer">
             Sign Out
           </Sidebar.Item>
         </Sidebar.ItemGroup>
