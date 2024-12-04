@@ -98,6 +98,7 @@ const CreatePostPage = () => {
             <option value="javascript">JavaScript</option>
             <option value="reactjs">ReactJs</option>
             <option value="nextjs">NextJs</option>
+            <option value="dotnet">DotNet</option>
           </Select>
         </div>
         <div className="flex gap-4 items-center justify-between border-4 border-teal-500 border-dotted p-3">

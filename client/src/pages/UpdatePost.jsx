@@ -16,12 +16,14 @@ const UpdatePost = () => {
   const [formData, setFormData] = useState({});
   const [currentPostId, setCurrentPostId] = useState(null)
   const {authUser} = useAuthStore();
+  const [blogImage, setBlogImage] = useState(null);
 
   const { postId } = useParams();
   useEffect(() => {
     ( async () => {
       try {
         const res = await axiosInstance.get(`/api/post/getposts?postId=${postId}`);
+        setBlogImage(res.data.posts[0].image)
         setCurrentPostId(res.data.posts[0]._id)
         setFormData(res.data.posts[0]);
       } catch (error) {
@@ -30,7 +32,8 @@ const UpdatePost = () => {
     })();
     
   },[]);
-  console.log(formData.image)
+ 
+  
   
   // this function is responsible for uploading the blog image
   const handleUploadImage = async () => {
@@ -105,6 +108,8 @@ const UpdatePost = () => {
             <option value="javascript">JavaScript</option>
             <option value="reactjs">ReactJs</option>
             <option value="nextjs">NextJs</option>
+            <option value="dotnet">DotNet</option>
+
           </Select>
         </div>
         <div className="flex gap-4 items-center justify-between border-4 border-teal-500 border-dotted p-3">
@@ -125,7 +130,7 @@ const UpdatePost = () => {
         
           <div className="w-full h-52">
             <img
-              src={formData.image || uploadedUrl}
+              src={blogImage || uploadedUrl}
               className=" w-full h-full object-cover"
               alt=""
             />
