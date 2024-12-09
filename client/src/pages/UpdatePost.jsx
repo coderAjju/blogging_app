@@ -17,6 +17,7 @@ const UpdatePost = () => {
   const [currentPostId, setCurrentPostId] = useState(null)
   const {authUser} = useAuthStore();
   const [blogImage, setBlogImage] = useState(null);
+  const [updating, setUpdating] = useState(false)
 
   const { postId } = useParams();
   useEffect(() => {
@@ -73,12 +74,15 @@ const UpdatePost = () => {
   const handleUpdatePost = async (e) => {
     e.preventDefault();
     try {
+      setUpdating(true)
       const res = await axiosInstance.put(`/api/post/updatepost/${currentPostId}/${authUser._id}`, formData);
       toast.success(res.data.message);  
       setFormData({});
       navigate("/post/" + res.data.post.slug);
     } catch (error) {
       toast.error(error.response.data.message || error.message);
+    }finally{
+      setUpdating(false)
     }
   };
 
@@ -152,8 +156,10 @@ const UpdatePost = () => {
           type="button"
           gradientDuoTone="purpleToPink"
           onClick={handleUpdatePost}
+          disabled={updating}
+          className={`${updating ? "opacity-80 cursor-not-allowed" : 'opacity-100 cursor-pointer'}`}
         >
-          Update
+          {updating ? "Updating..." : "Update"}
         </Button>
       </form>
     </div>
