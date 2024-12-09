@@ -13,6 +13,7 @@ const CreatePostPage = () => {
   const [uploadedUrl, setUploadedUrl] = useState("");
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({});
+  const [uplishing, setUplishing] = useState(false)
 
   const handleUploadPost = async () => {
     if (!file) {
@@ -64,6 +65,7 @@ const CreatePostPage = () => {
     }
 
     try {
+      setUplishing(true)
       const res = await axiosInstance.post("/api/post/create", formData);
 
       toast.success(res.data.message);
@@ -71,6 +73,8 @@ const CreatePostPage = () => {
       navigate("/post/" + res.data.post.slug);
     } catch (error) {
       toast.error(error.response.data.message || error.message);
+    }finally{
+      setUplishing(false)
     }
   };
   return (
@@ -141,8 +145,12 @@ const CreatePostPage = () => {
           type="button"
           gradientDuoTone="purpleToPink"
           onClick={handlePublishPost}
+          disabled={uplishing ? true : false}
+          className={`${uplishing ? "opacity-80 cursor-not-allowed" : 'opacity-100 cursor-pointer'}`}
         >
-          Publish
+          {
+            uplishing ? "uplishing..." :"Publish"
+          }
         </Button>
       </form>
     </div>
